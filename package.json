@@ -1,0 +1,50 @@
+{
+  "name": "botframework-webchat-leo",
+  "private": true,
+  "version": "0.0.0-0",
+  "description": "Leo fork of botframework-webchat",
+  "main": "lib/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "LeO",
+  "homepage": "https://meetleo.com",
+  "scripts": {
+    "build": "babel src --extensions .js,.jsx --ignore **/*.spec.js,**/*.test.js,__tests__/**/*.js --out-dir lib --verbose",
+    "eslint": "eslint src/**/*.js",
+    "prestart": "yarn build",
+    "start": "yarn build --skip-initial-build --watch"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.5",
+    "@babel/core": "^7.7.5",
+    "@babel/plugin-proposal-optional-chaining": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.7.6",
+    "@babel/preset-env": "^7.7.6",
+    "@babel/preset-react": "^7.8.3",
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-istanbul": "^5.2.0",
+    "babel-plugin-transform-inline-environment-variables": "^0.4.3",
+    "eslint": "^6.7.2",
+    "eslint-plugin-react": "^7.18.3",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.8"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.7.6",
+    "classnames": "^2.2.6",
+    "glamor": "^2.20.40",
+    "merge": "^1.2.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.jsx?": [
+      "yarn eslint --fix"
+    ]
+  }
+}
