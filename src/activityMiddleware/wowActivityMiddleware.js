@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { leoAttachmentLayout } from '../utils';
-import WoWLayout from '../layoutComponents/WoWLayout';
+import WoWLayout from '../layoutComponents/WowLayout';
 
 const wowActivityMiddleware = () => next => ({ activity, nextVisibleActivity }) => {
   if (

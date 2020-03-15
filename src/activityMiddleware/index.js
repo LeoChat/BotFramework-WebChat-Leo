@@ -4,4 +4,7 @@ import wowActivityMiddleware from './wowActivityMiddleware';
 
 export { wowActivityMiddleware };
 
-export default concatMiddleware(wowActivityMiddleware);
+// ORDER MATTERS!
+export default concatMiddleware(
+  wowActivityMiddleware
+);

@@ -1,7 +1,15 @@
 import { concatMiddleware } from 'botframework-webchat';
 
+import leoAdaptiveCardAttachmentMiddleware from './leoAdaptiveCardAttachmentMiddleware';
 import wowAttachmentMiddleware from './wowAttachmentMiddleware';
 
-export { wowAttachmentMiddleware };
+export {
+  leoAdaptiveCardAttachmentMiddleware,
+  wowAttachmentMiddleware,
+};
 
-export default concatMiddleware(wowAttachmentMiddleware);
+// ORDER MATTERS!
+export default concatMiddleware(
+  wowAttachmentMiddleware,
+  leoAdaptiveCardAttachmentMiddleware,
+);

@@ -53,7 +53,7 @@ const WowLayout = ({ activity, nextVisibleActivity, renderAttachment }) => {
   const [{ initials: botInitials }] = useAvatarForBot();
   const [{ initials: userInitials }] = useAvatarForUser();
   const [{ botAvatarInitials, bubbleNubSize, bubbleFromUserNubSize, userAvatarInitials }] = useStyleOptions();
-  const [{ leoWowLayout: wowActivityStyleSet }] = useStyleSet();
+  const [{ leoWowLayout: wowLayoutStyleSet }] = useStyleSet();
   const [direction] = useDirection();
   const renderActivityStatus = useRenderActivityStatus({ activity, nextVisibleActivity });
 
@@ -77,7 +77,7 @@ const WowLayout = ({ activity, nextVisibleActivity, renderAttachment }) => {
     <div
       className={classNames(
         ROOT_CSS + '',
-        wowActivityStyleSet + '',
+        wowLayoutStyleSet + '',
         direction === 'rtl' ? 'webchatleo__wow--rtl' : '',
         {
           'from-user': fromUser,

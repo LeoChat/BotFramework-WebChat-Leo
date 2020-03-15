@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import ReactWebChat, { concatMiddleware } from 'botframework-webchat';
 import merge from 'merge';
 import React, { useMemo } from 'react';
