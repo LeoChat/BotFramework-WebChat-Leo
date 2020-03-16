@@ -1,17 +1,26 @@
 import { hooks as WebChatHooks } from 'botframework-webchat';
-import React from 'react';
+import React, { useMemo } from 'react';
 
-const { useStyleSet } = WebChatHooks;
+const { useDirection, useStyleSet } = WebChatHooks;
 
 const leoAdaptiveCardAttachmentMiddleware = () => next => {
   const Attachment = ({ activity, attachment }) => {
+    const [direction] = useDirection();
     const [{ leoAdaptiveCardAttachment: adaptiveCardStyleSet }] = useStyleSet();
     const children = next({ activity, attachment });
+
+    const directionVars = useMemo(() => {
+      // This will dynamically affect CSS while remaining it static
+      return {
+        '--ac-left': `${direction === 'ltr' ? 'left' : 'right !important'}`,
+        '--ac-right': `${direction === 'ltr' ? 'right' : 'left !important'}`,
+      };
+    }, [direction]);
 
     // This will apply style fixes to existing adaptive card implementation
     if (/^application\/vnd\.microsoft\.card/.test(attachment.contentType)) {
       return (
-        <span className={adaptiveCardStyleSet + ''}>
+        <span style={directionVars} className={adaptiveCardStyleSet + ''}>
           {children}
         </span>
       );

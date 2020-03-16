@@ -1,222 +1,187 @@
-import { hooks as WebChatHooks } from 'botframework-webchat';
-
-const { useDirection } = WebChatHooks;
-
 export const createLeoAdaptiveCardAttachmentStyleSet = ({ accent }) => {
-  const cache = {};
+  /* Adaptive card */
 
+  // Functionality is mostly related to disabling buttons once the card is not
+  // in the front anymore
   return {
-    get leoAdaptiveCardAttachment() {
-      const direction = useDirection();
+    leoAdaptiveCardAttachment: {
+      '& .webchat__row.attachment': {
+        backgroundColor: 'inherit',
 
-      if (cache.direction === direction) return cache.result;
+        '& .attachment.bubble': {
+          backgroundColor: 'rgb(255, 255, 255)',
+        },
 
-      const result = {
-        /* Adaptive card */
+        '& p': {
+          textAlign: 'var(--ac-left)',
+        },
 
-        // Functionality is mostly related to disabling buttons once the card is not
-        // in the front anymore
-        '& .webchat__row.attachment': {
-          backgroundColor: 'inherit',
+        '& button:disabled': {
+          backgroundColor: '#ccc',
+          color: '#888',
+          border: '1px solid #ccc',
+        },
 
-          '& .attachment.bubble': {
-            backgroundColor: 'rgb(255, 255, 255)'
-          },
+        '& button': {
+          backgroundColor: 'white',
+          color: accent,
+          width: 'auto',
+          fontSize: 16,
+          cursor: 'pointer',
+          padding: '12px 6px',
+          borderRadius: 20,
+          boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.16)',
+          border: '1px solid ' + accent,
+          textAlign: 'center',
+          lineHeight: 1,
+          transition: 'all 0.3s ease-in-out'
+        },
 
-          '& p': {
-            textAlign: direction === 'ltr' ? 'left' : 'right !important'
-          },
+        '& button:hover:not([disabled]), & button:active': {
+          backgroundColor: accent,
+          color: 'White',
+          boxShadow: 'inset 0 1px 2px 0 rgba(0, 0, 0, 0.16)',
+        },
 
-          '& button:disabled': {
-            backgroundColor: '#ccc',
-            color: '#888',
-            border: '1px solid #ccc',
-          },
+        '& button:focus': {
+          outline: 'none'
+        },
 
-          '& button': {
-            backgroundColor: 'white',
-            color: accent,
-            width: 'auto',
-            fontSize: 16,
-            cursor: 'pointer',
-            padding: '12px 6px',
-            borderRadius: 20,
-            boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.16)',
-            border: '1px solid ' + accent,
-            textAlign: 'center',
-            lineHeight: 1,
-            transition: 'all 0.3s ease-in-out'
-          },
+        '& .receipt table': {
+          borderCollapse: 'collapse',
+          width: '100%'
+        },
 
-          '& button:hover:not([disabled]), & button:active': {
-            backgroundColor: accent,
-            color: 'White',
-            boxShadow: 'inset 0 1px 2px 0 rgba(0, 0, 0, 0.16)',
-          },
+        '& .receipt th, & .receipt td': {
+          textAlign: 'var(--ac-left)',
+          verticalAlign: 'top'
+        },
 
-          '& button:focus': {
-            outline: 'none'
-          },
+        '& .receipt th:first-child, & .receipt td:first-child': {
+          textAlign: 'var(--ac-right)'
+        },
 
-          '& .receipt table': {
-            borderCollapse: 'collapse',
-            width: '100%'
-          },
+        '& .receipt th': {
+          color: '#444',
+          fontSize: 'inherit',
+          fontWeight: 'normal',
+          lineHeight: 1.75
+        },
 
-          '& .receipt th, & .receipt td': {
-            textAlign: direction === 'ltr' ? 'left' : 'right !important',
-            verticalAlign: 'top'
-          },
+        '& .receipt thead tr:last-child th': {
+          paddingBottom: 16
+        },
 
-          '& .receipt th:first-child, & .receipt td:first-child': {
-            textAlign: direction === 'ltr' ? 'right' : 'left !important'
-          },
+        '& .receipt th[colspan="2"]': {
+          color: 'inherit',
+          fontSize: 15,
+          fontWeight: 700
+        },
 
-          '& .receipt th': {
-            color: '#444',
-            fontSize: 'inherit',
-            fontWeight: 'normal',
-            lineHeight: 1.75
-          },
+        '& .receipt td': {
+          padding: '4px 8px 0 8px'
+        },
 
-          '& .receipt thead tr:last-child th': {
-            paddingBottom: 16
-          },
+        '& .receipt td img': {
+          float: 'var(--ac-right)',
+          margin: '5px 8px 8px 0',
+          maxHeight: 50,
+          maxWidth: 50
+        },
 
-          '& .receipt th[colspan="2"]': {
-            color: 'inherit',
-            fontSize: 15,
-            fontWeight: 700
-          },
+        '& .receipt div.title': {
+          fontWeight: 'bolder'
+        },
 
-          '& .receipt td': {
-            padding: '4px 8px 0 8px'
-          },
+        '& .receipt div.subtitle': {
+          fontWeight: 'lighter'
+        },
 
-          '& .receipt td img': {
-            float: direction === 'ltr' ? 'right' : 'left !important',
-            margin: '5px 8px 8px 0',
-            maxHeight: 50,
-            maxWidth: 50
-          },
+        '& .receipt tbody tr, & .receipt tfoot tr': {
+          borderTop: '1px solid #ccc'
+        },
 
-          '& .receipt div.title': {
-            fontWeight: 'bolder'
-          },
+        '& .receipt tbody tr:first-child, & .receipt tfoot tr:first-child': {
+          borderTopWidth: 2
+        },
 
-          '& .receipt div.subtitle': {
-            fontWeight: 'lighter'
-          },
+        '& .receipt tfoot td': {
+          lineHeight: 2.25
+        },
 
-          '& .receipt tbody tr, & .receipt tfoot tr': {
-            borderTop: '1px solid #ccc'
-          },
+        '& .receipt tfoot .total': {
+          fontWeight: 'bold'
+        },
 
-          '& .receipt tbody tr:first-child, & .receipt tfoot tr:first-child': {
-            borderTopWidth: 2
-          },
+        '& .thumbnail img': {
+          float: 'var(--ac-left)',
+          marginBottom: 10,
+          marginLeft: 10,
+          width: 100
+        },
 
-          '& .receipt tfoot td': {
-            lineHeight: 2.25
-          },
+        '& .signin h1': {
+          margin: '10px 24px 16px 14px'
+        },
 
-          '& .receipt tfoot .total': {
-            fontWeight: 'bold'
-          },
+        '& input[type=number], & input[type=text], & input[type=tel], & input[type=password], & input[type=email], & input[type=date], & input[type=time], & textarea': {
+          border: '1px solid #b5b5b5',
+          borderRadius: 5,
+          boxShadow: 'inset 1px 1px 1px 0 rgba(198, 198, 198, 0.31)',
+          color: '#444',
+          background: '#fff',
+          outline: 'none',
+          fontSize: 16,
+          padding: '6px 12px',
+          resize: 'none',
+          width: 'auto',
+          transition: 'all 0.3s ease-in-out',
+          fontFamily: 'Segoe UI,sans-serif'
+        },
 
-          '& .thumbnail img': {
-            float: direction === 'ltr' ? 'left' : 'right !important',
-            marginBottom: 10,
-            marginLeft: 10,
-            width: 100
-          },
+        '& input[type=checkbox]': {
+          height: 18,
+          width: 18,
+          margin: 0,
+          background: '#fff',
+          flex: 'none'
+        },
 
-          '& .signin h1': {
-            margin: '10px 24px 16px 14px'
-          },
+        '& .ac-textBlock ul': {
+          boxSizing: 'border-box'
+        },
 
-          '& input[type=number], & input[type=text], & input[type=tel], & input[type=password], & input[type=email], & input[type=date], & input[type=time], & textarea': {
-            border: '1px solid #b5b5b5',
-            borderRadius: 5,
-            boxShadow: 'inset 1px 1px 1px 0 rgba(198, 198, 198, 0.31)',
-            color: '#444',
-            background: '#fff',
-            outline: 'none',
-            fontSize: 16,
-            padding: '6px 12px',
-            resize: 'none',
-            width: 'auto',
-            transition: 'all 0.3s ease-in-out',
-            fontFamily: 'Segoe UI,sans-serif'
-          },
+        '& .ac-textBlock ul li': {
+          textAlign: 'var(--ac-left)',
+        },
 
-          '& input[type=number], & input[type=text]': {
-            // maxWidth: 300,
-          },
+        '& select.ac-input': {
+          backgroundColor: '#fff',
+          width: '100%',
+          border: '1px solid #ccc',
+          borderRadius: 5,
+          outline: 'none',
+          padding: '6px 12px',
+          resize: 'none',
+          boxShadow: '0 0 3px 1px rgba(198, 198, 198, 0.31)',
+          color: '#444',
+          transition: 'all 0.3s ease-in-out',
+          height: '30px'
+        },
 
-          // '& input[type=checkbox] + div': {
-          //   whiteSpace: 'initial !important',
-          //   flex: 'auto !important'
-          // },
+        '& .ac-container': {
+          borderRadius: 10,
+          textAlign: 'var(--ac-left)',
+        },
 
-          '& input[type=checkbox]': {
-            height: 18,
-            width: 18,
-            margin: 0,
-            background: '#fff',
-            flex: 'none'
-            // margin: direction === 'ltr' ? '0 0 5px 0 !important' : '0 0 5px 5px !important',
-            // boxShadow: '0 0 3px 0 #444'
-          },
+        '& .ac-container table tr td div': {
+          marginRight: 10
+        },
 
-          '& input[type=date]': {
-            // ???
-          },
-
-          '& .ac-textBlock ul': {
-            boxSizing: 'border-box'
-          },
-
-          '& .ac-textBlock ul li': {
-            textAlign: direction === 'ltr' ? 'left' : 'right !important'
-          },
-
-          // '& .ac-input p': {
-          //   margin: '0 5px'
-          // },
-
-          '& select.ac-input': {
-            backgroundColor: '#fff',
-            width: '100%',
-            border: '1px solid #ccc',
-            borderRadius: 5,
-            outline: 'none',
-            padding: '6px 12px',
-            resize: 'none',
-            boxShadow: '0 0 3px 1px rgba(198, 198, 198, 0.31)',
-            color: '#444',
-            transition: 'all 0.3s ease-in-out',
-            height: '30px'
-          },
-
-          '& .ac-container': {
-            borderRadius: 10,
-            textAlign: direction === 'ltr' ? 'left' : 'right !important'
-          },
-
-          '& .ac-container table tr td div': {
-            marginRight: 10
-          },
-
-          '& .ac-container:focus': {
-            outline: 'none'
-          }
+        '& .ac-container:focus': {
+          outline: 'none'
         }
-      };
-
-      Object.assign(cache, { direction, result });
-
-      return result;
+      }
     },
   };
 };
