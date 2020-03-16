@@ -8,6 +8,7 @@ import defaultActivityMiddleware from './activityMiddleware';
 import defaultAttachmentMiddleware from './attachmentMiddleware';
 import defaultLocales from './locales';
 import { createStyleSet } from './styleSet';
+import { determineDirection } from './utils';
 
 const ROOT_CSS = css({
   flex: 1,
@@ -115,15 +116,17 @@ const ReactLeoWebChat = ({
     return merge.recursive({}, defaultLocales, props.overrideLocalizedStrings);
   }, [props.overrideLocalizedStrings]);
 
+  const direction = useMemo(() => {
+    return determineDirection(props.dir, props.language);
+  }, [props.dir, props.language]);
+
   const headerVars = useMemo(() => {
     return {
       '--header-bg': styleSet.options.accent,
-      '--flex-direction': props.dir === 'rtl' ? 'row-reverse' : 'row',
-      '--text-align': props.dir === 'rtl' ? 'right' : 'left',
+      '--flex-direction': direction === 'rtl' ? 'row-reverse' : 'row',
+      '--text-align': direction === 'rtl' ? 'right' : 'left',
     };
-  }, [styleSet.options, props.dir]);
-
-  const dir = props.dir;
+  }, [styleSet.options, direction]);
 
   return (
     <div className={ROOT_CSS + ''}>

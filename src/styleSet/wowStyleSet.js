@@ -2,6 +2,7 @@ export const createWowStyleSet = ({
   paddingRegular,
   bubbleMaxWidth,
   bubbleMinWidth,
+  accent,
 }) => {
   return {
     leoWowLayout: {
@@ -76,6 +77,7 @@ export const createWowStyleSet = ({
     leoWowAttachment: {
       margin: paddingRegular,
       padding: paddingRegular,
+      backgroundColor: accent,
     },
   };
 };

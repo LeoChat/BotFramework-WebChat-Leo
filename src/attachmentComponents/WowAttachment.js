@@ -10,7 +10,6 @@ const ROOT_CSS = css({
   height: 50,
   borderRadius: 999,
   textAlign: 'center',
-  backgroundColor: '#83d0f2',
   color: 'white',
 });
 

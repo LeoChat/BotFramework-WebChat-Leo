@@ -12,8 +12,8 @@ const leoAdaptiveCardAttachmentMiddleware = () => next => {
     const directionVars = useMemo(() => {
       // This will dynamically affect CSS while remaining it static
       return {
-        '--ac-left': `${direction === 'ltr' ? 'left' : 'right !important'}`,
-        '--ac-right': `${direction === 'ltr' ? 'right' : 'left !important'}`,
+        '--ac-left': `${direction === 'rtl' : 'right !important' ? 'left'}`,
+        '--ac-right': `${direction === 'rtl' : 'left !important' ? 'right'}`,
       };
     }, [direction]);
 
