@@ -1,7 +1,6 @@
 import { createStyleSet as createDefaultStyleSet } from 'botframework-webchat';
 
 import { createLeoAdaptiveCardAttachmentStyleSet } from './leoAdaptiveCardAttachment';
-import { createRootStyleSet } from './rootStyleSet';
 import { createWowStyleSet } from './wowStyleSet';
 
 export const createStyleSet = (styleOptions) => {
@@ -24,7 +23,6 @@ export const createStyleSet = (styleOptions) => {
   return {
     ...defaultStyleSet,
     ...createLeoAdaptiveCardAttachmentStyleSet(defaultStyleSet.options),
-    ...createRootStyleSet(defaultStyleSet.options),
     ...createWowStyleSet(defaultStyleSet.options),
   };
 };

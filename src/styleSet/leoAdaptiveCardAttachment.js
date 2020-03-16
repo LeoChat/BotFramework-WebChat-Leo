@@ -13,7 +13,7 @@ export const createLeoAdaptiveCardAttachmentStyleSet = ({ accent }) => {
         },
 
         '& p': {
-          textAlign: 'var(--ac-left)',
+          // textAlign: 'var(--ac-left)',
         },
 
         '& button:disabled': {
@@ -53,12 +53,12 @@ export const createLeoAdaptiveCardAttachmentStyleSet = ({ accent }) => {
         },
 
         '& .receipt th, & .receipt td': {
-          textAlign: 'var(--ac-left)',
+          // textAlign: 'var(--ac-left)',
           verticalAlign: 'top'
         },
 
         '& .receipt th:first-child, & .receipt td:first-child': {
-          textAlign: 'var(--ac-right)'
+          // textAlign: 'var(--ac-right)'
         },
 
         '& .receipt th': {
@@ -83,7 +83,7 @@ export const createLeoAdaptiveCardAttachmentStyleSet = ({ accent }) => {
         },
 
         '& .receipt td img': {
-          float: 'var(--ac-right)',
+          // float: 'var(--ac-right)',
           margin: '5px 8px 8px 0',
           maxHeight: 50,
           maxWidth: 50
@@ -114,7 +114,7 @@ export const createLeoAdaptiveCardAttachmentStyleSet = ({ accent }) => {
         },
 
         '& .thumbnail img': {
-          float: 'var(--ac-left)',
+          // float: 'var(--ac-left)',
           marginBottom: 10,
           marginLeft: 10,
           width: 100
@@ -152,7 +152,7 @@ export const createLeoAdaptiveCardAttachmentStyleSet = ({ accent }) => {
         },
 
         '& .ac-textBlock ul li': {
-          textAlign: 'var(--ac-left)',
+          // textAlign: 'var(--ac-left)',
         },
 
         '& select.ac-input': {
@@ -171,7 +171,7 @@ export const createLeoAdaptiveCardAttachmentStyleSet = ({ accent }) => {
 
         '& .ac-container': {
           borderRadius: 10,
-          textAlign: 'var(--ac-left)',
+          // textAlign: 'var(--ac-left)',
         },
 
         '& .ac-container table tr td div': {
