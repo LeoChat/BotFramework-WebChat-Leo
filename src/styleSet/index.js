@@ -17,6 +17,9 @@ export const createStyleSet = (styleOptions) => {
     paddingRegular: 10,
     avatarSize: 35,
     suggestedActionBorderRadius: 20,
+    // The following should be used with flex layout but it's not implemented like so internally
+    // 70px represents header logo size (50px) + margin * 2 (from top and bottom = 20px)
+    rootHeight: 'calc(100% - 70px)',
     ...(styleOptions || {}),
   });
 

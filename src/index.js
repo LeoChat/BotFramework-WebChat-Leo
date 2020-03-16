@@ -12,10 +12,12 @@ import { determineDirection } from './utils';
 
 const ROOT_CSS = css({
   flex: 1,
-  height: '100%',
   margin: '0 auto',
   maxWidth: 450,
   backgroundColor: 'white',
+  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
+  webkitFontSmoothing: 'antialiased',
+  mozOsxFontSmoothing: 'grayscale',
 
   '& *': {
     outline: 'none !important',
