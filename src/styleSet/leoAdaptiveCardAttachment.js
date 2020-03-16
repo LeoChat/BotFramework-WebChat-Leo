@@ -6,7 +6,9 @@ export const createLeoAdaptiveCardAttachmentStyleSet = ({ accent }) => {
   const cache = {};
 
   return {
-    leoAdaptiveCardAttachment({ direection }) {
+    get leoAdaptiveCardAttachment() {
+      const direction = useDirection();
+
       if (cache.direction === direction) return cache.result;
 
       const result = {

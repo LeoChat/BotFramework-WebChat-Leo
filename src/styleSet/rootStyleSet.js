@@ -1,4 +1,4 @@
-export const createRootStyleSet = ({}) => {
+export const createRootStyleSet = () => {
   return {
     root: {
       flex: 1,

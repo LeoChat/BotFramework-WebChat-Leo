@@ -1,6 +1,7 @@
 import { hooks as WebChatHooks } from 'botframework-webchat';
+import React from 'react';
 
-const { useDirection, useStyleSet } = WebChatHooks;
+const { useStyleSet } = WebChatHooks;
 
 const leoAdaptiveCardAttachmentMiddleware = () => next => {
   const Attachment = ({ activity, attachment }) => {
