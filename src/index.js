@@ -61,7 +61,7 @@ const HEADER_CSS = css({
   padding: '4px',
   height: 'auto',
   display: 'flex',
-  flexDirection: 'var(--flex-direction)',
+  flexDirection: 'row',
   alignItems: 'center',
 
   '& > img': {
@@ -71,7 +71,6 @@ const HEADER_CSS = css({
     borderRadius: '100%',
     background: 'white',
     objectFit: 'contain',
-    alignSelf: 'stretch',
   },
 
   '& > div': {
@@ -125,7 +124,6 @@ const ReactLeoWebChat = ({
   const headerVars = useMemo(() => {
     return {
       '--header-bg': styleSet.options.accent,
-      '--flex-direction': direction === 'rtl' ? 'row-reverse' : 'row',
       '--text-align': direction === 'rtl' ? 'right' : 'left',
     };
   }, [styleSet.options, direction]);
