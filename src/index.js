@@ -11,7 +11,7 @@ import { createStyleSet } from './styleSet';
 import { determineDirection } from './utils';
 
 const ROOT_CSS = css({
-  flex: 1,
+  height: '100%',
   margin: '0 auto',
   maxWidth: 450,
   backgroundColor: 'white',
