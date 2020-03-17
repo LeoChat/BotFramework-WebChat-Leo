@@ -12,12 +12,15 @@ import { determineDirection } from './utils';
 
 const ROOT_CSS = css({
   height: '100%',
-  margin: '0 auto',
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'column',
   maxWidth: 450,
+  margin: '0 auto',
   backgroundColor: 'white',
   fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
-  webkitFontSmoothing: 'antialiased',
-  mozOsxFontSmoothing: 'grayscale',
+  WebkitFontSmoothing: 'antialiased',
+  MozOsxFontSmoothing: 'grayscale',
 
   '& *': {
     outline: 'none !important',
@@ -28,27 +31,31 @@ const ROOT_CSS = css({
     boxShadow: 'none !important'
   },
 
-  /* width */
-  '& > div > div::-webkit-scrollbar': {
-    width: 8
-  },
+  '& > div:last-child': {
+    flex: 1,
 
-  /* Track */
-  '& > div > div::-webkit-scrollbar-track': {
-    borderRadius: 10,
-    backgroundColor: 'rgba(180, 187, 205, 0.2)'
-  },
+    /* width */
+    '& > div > div::-webkit-scrollbar': {
+      width: 8
+    },
 
-  /* Handle */
-  '& > div > div::-webkit-scrollbar-thumb': {
-    backgroundColor: 'rgba(180, 187, 205, 0.8)',
-    border: '1px solid rgba(120, 120, 120, .1)',
-    borderRadius: 10
-  },
+    /* Track */
+    '& > div > div::-webkit-scrollbar-track': {
+      borderRadius: 10,
+      backgroundColor: 'rgba(180, 187, 205, 0.2)'
+    },
 
-  /* Handle on hover */
-  '& > div > div::-webkit-scrollbar-thumb:hover': {
-    backgroundColor: 'rgba(180, 187, 205, 1)'
+    /* Handle */
+    '& > div > div::-webkit-scrollbar-thumb': {
+      backgroundColor: 'rgba(180, 187, 205, 0.8)',
+      border: '1px solid rgba(120, 120, 120, .1)',
+      borderRadius: 10
+    },
+
+    /* Handle on hover */
+    '& > div > div::-webkit-scrollbar-thumb:hover': {
+      backgroundColor: 'rgba(180, 187, 205, 1)'
+    },
   },
 });
 
@@ -96,11 +103,16 @@ const HEADER_CSS = css({
 });
 
 const ReactLeoWebChat = ({
+  showHeader,
   headerLogo,
   headerTitle,
   headerSubtitle,
   ...props
 }) => {
+  const shouldShowHeader = useMemo(() => {
+    return headerLogo && headerTitle && headerSubtitle;
+  }, [headerLogo, headerTitle, headerSubtitle]);
+
   const activityMiddleware = useMemo(() => {
     return concatMiddleware(...[props.activityMiddleware, defaultActivityMiddleware].filter(Boolean));
   }, [props.activityMiddleware]);
@@ -130,22 +142,26 @@ const ReactLeoWebChat = ({
 
   return (
     <div className={ROOT_CSS + ''}>
-      <div style={headerVars} className={HEADER_CSS + ''}>
-        {headerLogo && <img src={headerLogo} alt='' />}
-        <div>
-          {headerTitle && <p>{headerTitle}</p>}
-          {headerSubtitle && <p>{headerSubtitle}</p>}
+      {shouldShowHeader && (
+        <div style={headerVars} className={HEADER_CSS + ''}>
+          {headerLogo && <img src={headerLogo} alt='' />}
+          <div>
+            {headerTitle && <p>{headerTitle}</p>}
+            {headerSubtitle && <p>{headerSubtitle}</p>}
+          </div>
         </div>
-      </div>
+      )}
 
-      <ReactWebChat
-        {...props}
-        activityMiddleware={activityMiddleware}
-        attachmentMiddleware={attachmentMiddleware}
-        styleOptions={styleSet.options}
-        styleSet={styleSet}
-        overrideLocalizedStrings={locales}
-      />
+      <div>
+        <ReactWebChat
+          {...props}
+          activityMiddleware={activityMiddleware}
+          attachmentMiddleware={attachmentMiddleware}
+          styleOptions={styleSet.options}
+          styleSet={styleSet}
+          overrideLocalizedStrings={locales}
+        />
+      </div>
     </div>
   );
 };
