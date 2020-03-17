@@ -15,7 +15,7 @@ export const useCSSVarsPolyfill = () => {
 
     const scriptEl = document.createElement('script');
     scriptEl.type = 'text/javascript';
-    scriptEl.src = 'https://raw.githubusercontent.com/nuxodin/ie11CustomProperties/26343ce21360dd6ca250bddf8569dc12b8e2f04d/ie11CustomProperties.js';
+    scriptEl.src = 'https://cdn.jsdelivr.net/gh/nuxodin/ie11CustomProperties@26343ce21360dd6ca250bddf8569dc12b8e2f04d/ie11CustomProperties.js';
 
     scriptEl.onload = () => {
       if (isMountedRef.current) {
