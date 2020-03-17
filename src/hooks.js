@@ -13,21 +13,14 @@ export const useCSSVarsPolyfill = () => {
     testEl.style.setProperty('--x', 'y');
     if (testEl.style.getPropertyValue('--x') === 'y' || !testEl.msMatchesSelector) return true;
 
-    const scriptEl = document.createElement('script');
-    scriptEl.type = 'text/javascript';
-    scriptEl.src = 'https://cdn.jsdelivr.net/gh/nuxodin/ie11CustomProperties@26343ce21360dd6ca250bddf8569dc12b8e2f04d/ie11CustomProperties.js';
-
-    scriptEl.onload = () => {
+    import('ie11-custom-properties').then(() => {
       if (isMountedRef.current) {
         setLoaded(true);
       }
-    };
-
-    scriptEl.onerror = (error) => {
+    })
+    .catch((error) => {
       setError(error);
-    };
-
-    document.head.appendChild(scriptEl);
+    });
 
     return false;
   }, [true]);

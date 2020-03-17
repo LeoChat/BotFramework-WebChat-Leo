@@ -2028,6 +2028,11 @@ iconv-lite@^0.4.24, iconv-lite@~0.4.13:
   dependencies:
     safer-buffer ">= 2.1.2 < 3"
 
+ie11-custom-properties@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/ie11-custom-properties/-/ie11-custom-properties-3.0.6.tgz#c892460b95308b6a830a1f9f7b12068b21590291"
+  integrity sha512-IIyVr9NhUc1LNwxEO9hlfE2Tw7X/dKzuIAXMB+FyJaN18WXxN9yJ3uE+se60nFcjRSfNgntyGuosh4daxaXpsA==
+
 ignore@^4.0.6:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-4.0.6.tgz#750e3db5862087b4737ebac8207ffd1ef27b25fc"
