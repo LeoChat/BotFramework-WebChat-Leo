@@ -13,7 +13,7 @@ export const useCSSVarsPolyfill = () => {
     testEl.style.setProperty('--x', 'y');
     if (testEl.style.getPropertyValue('--x') === 'y' || !testEl.msMatchesSelector) return true;
 
-    import('ie11-custom-properties').then(() => {
+    import('./polyfills/CSSVarsPolyfill').then(() => {
       if (isMountedRef.current) {
         setLoaded(true);
       }
