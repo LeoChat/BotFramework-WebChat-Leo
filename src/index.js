@@ -33,27 +33,28 @@ const ROOT_CSS = css({
 
   '& > div:last-child': {
     flex: 1,
+    overflowY: 'hidden',
 
     /* width */
-    '& > div > div::-webkit-scrollbar': {
+    '& > div > div > div::-webkit-scrollbar': {
       width: 8
     },
 
     /* Track */
-    '& > div > div::-webkit-scrollbar-track': {
+    '& > div > div > div::-webkit-scrollbar-track': {
       borderRadius: 10,
       backgroundColor: 'rgba(180, 187, 205, 0.2)'
     },
 
     /* Handle */
-    '& > div > div::-webkit-scrollbar-thumb': {
+    '& > div > div > div::-webkit-scrollbar-thumb': {
       backgroundColor: 'rgba(180, 187, 205, 0.8)',
       border: '1px solid rgba(120, 120, 120, .1)',
       borderRadius: 10
     },
 
     /* Handle on hover */
-    '& > div > div::-webkit-scrollbar-thumb:hover': {
+    '& > div > div > div::-webkit-scrollbar-thumb:hover': {
       backgroundColor: 'rgba(180, 187, 205, 1)'
     },
   },
