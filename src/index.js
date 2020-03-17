@@ -2,7 +2,7 @@ import ReactWebChat, { concatMiddleware } from 'botframework-webchat';
 import classNames from 'classnames';
 import { css } from 'glamor';
 import merge from 'merge';
-import React, { useCallback, useLayoutEffect, useMemo } from 'react';
+import React, { useLayoutEffect, useMemo, useRef } from 'react';
 
 import defaultActivityMiddleware from './activityMiddleware';
 import defaultAttachmentMiddleware from './attachmentMiddleware';
@@ -113,6 +113,7 @@ const ReactLeoWebChat = ({
   onError = noop,
   ...props
 }) => {
+  const headerRef = useRef(null);
   const [cssVarsPolyfillLoaded, cssVarsPolyfillError] = useCSSVarsPolyfill();
 
   const shouldShowHeader = useMemo(() => {
@@ -139,11 +140,9 @@ const ReactLeoWebChat = ({
     return determineDirection(props.dir, props.language);
   }, [props.dir, props.language]);
 
-  const setHeaderCSSVars = useCallback((el) => {
-    if (!el) return;
-
-    el.style.setProperty('--header-bg', styleSet.options.accent);
-    el.style.setProperty('--text-align', direction === 'rtl' ? 'right' : 'left');
+  useLayoutEffect(() => {
+    headerRef.current.style.setProperty('--header-bg', styleSet.options.accent);
+    headerRef.current.style.setProperty('--text-align', direction === 'rtl' ? 'right' : 'left');
   }, [styleSet.options, direction]);
 
   useLayoutEffect(() => {
@@ -163,7 +162,7 @@ const ReactLeoWebChat = ({
   return (
     <div className={ROOT_CSS + ''}>
       {shouldShowHeader && (
-        <div ref={setHeaderCSSVars} className={HEADER_CSS + ''}>
+        <div ref={headerRef} className={HEADER_CSS + ''}>
           {headerLogo && <img src={headerLogo} alt='' />}
           <div>
             {headerTitle && <p>{headerTitle}</p>}
