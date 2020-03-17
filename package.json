@@ -12,7 +12,7 @@
   "scripts": {
     "build": "babel src --extensions .js,.jsx --ignore **/*.spec.js,**/*.test.js,__tests__/**/*.js --out-dir lib --verbose",
     "eslint": "eslint src/**/*.js",
-    "prepare": "yarn build",
+    "prepublishOnly": "yarn build",
     "prestart": "yarn build",
     "start": "yarn build --skip-initial-build --watch"
   },
