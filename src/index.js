@@ -2,13 +2,14 @@ import ReactWebChat, { concatMiddleware } from 'botframework-webchat';
 import classNames from 'classnames';
 import { css } from 'glamor';
 import merge from 'merge';
-import React, { useMemo } from 'react';
+import React, { useCallback, useLayoutEffect, useMemo } from 'react';
 
 import defaultActivityMiddleware from './activityMiddleware';
 import defaultAttachmentMiddleware from './attachmentMiddleware';
+import { useCSSVarsPolyfill } from './hooks';
 import defaultLocales from './locales';
 import { createStyleSet } from './styleSet';
-import { determineDirection } from './utils';
+import { determineDirection, noop } from './utils';
 
 const ROOT_CSS = css({
   height: '100%',
@@ -108,8 +109,12 @@ const ReactLeoWebChat = ({
   headerLogo,
   headerTitle,
   headerSubtitle,
+  onLoad = noop,
+  onError = noop,
   ...props
 }) => {
+  const [cssVarsPolyfillLoaded, cssVarsPolyfillError] = useCSSVarsPolyfill();
+
   const shouldShowHeader = useMemo(() => {
     return headerLogo && headerTitle && headerSubtitle;
   }, [headerLogo, headerTitle, headerSubtitle]);
@@ -134,17 +139,31 @@ const ReactLeoWebChat = ({
     return determineDirection(props.dir, props.language);
   }, [props.dir, props.language]);
 
-  const headerVars = useMemo(() => {
-    return {
-      '--header-bg': styleSet.options.accent,
-      '--text-align': direction === 'rtl' ? 'right' : 'left',
-    };
+  const setHeaderCSSVars = useCallback((el) => {
+    if (!el) return;
+
+    el.style.setProperty('--header-bg', styleSet.options.accent);
+    el.style.setProperty('--text-align', direction === 'rtl' ? 'right' : 'left');
   }, [styleSet.options, direction]);
+
+  useLayoutEffect(() => {
+    if (!cssVarsPolyfillLoaded || !cssVarsPolyfillError) return;
+
+    if (cssVarsPolyfillLoaded) {
+      onLoad();
+    }
+    else {
+      onError(cssVarsPolyfillError);
+    }
+  }, [cssVarsPolyfillLoaded, cssVarsPolyfillError]);
+
+  // Parent should handle loading layout
+  if (!cssVarsPolyfillLoaded) return null;
 
   return (
     <div className={ROOT_CSS + ''}>
       {shouldShowHeader && (
-        <div style={headerVars} className={HEADER_CSS + ''}>
+        <div ref={setHeaderCSSVars} className={HEADER_CSS + ''}>
           {headerLogo && <img src={headerLogo} alt='' />}
           <div>
             {headerTitle && <p>{headerTitle}</p>}

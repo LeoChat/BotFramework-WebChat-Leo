@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { leoAttachmentLayout } from '../utils';
-import WoWLayout from '../layoutComponents/WowLayout';
+import WowLayout from '../layoutComponents/WowLayout';
 
 const wowActivityMiddleware = () => next => ({ activity, nextVisibleActivity }) => {
   if (
@@ -9,11 +9,11 @@ const wowActivityMiddleware = () => next => ({ activity, nextVisibleActivity }) 
     activity.attachments?.length >= 1 &&
     activity.attachmentLayout === leoAttachmentLayout('wow')
   ) {
-    const BoundWoWLayout = renderAttachment => (
-      <WoWLayout activity={activity} nextVisibleActivity={nextVisibleActivity} renderAttachment={renderAttachment} />
+    const BoundWowLayout = renderAttachment => (
+      <WowLayout activity={activity} nextVisibleActivity={nextVisibleActivity} renderAttachment={renderAttachment} />
     );
 
-    return BoundWoWLayout;
+    return BoundWowLayout;
   }
 
   return next({ activity, nextVisibleActivity });

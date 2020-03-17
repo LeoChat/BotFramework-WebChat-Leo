@@ -1,6 +1,7 @@
-export * from './hooksUtils';
 export * from './middlewareUtils';
 export const browser = require('./browserUtils');
+
+export const noop = () => {};
 
 export const getRTLList = () => {
   const rtlList = ['ar-EG', 'ar-JO', 'ar-SA', 'he-IL'];
