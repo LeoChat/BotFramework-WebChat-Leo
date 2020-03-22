@@ -9,7 +9,7 @@ import defaultAttachmentMiddleware from './attachmentMiddleware';
 import { useCSSVarsPolyfill } from './hooks';
 import defaultLocales from './locales';
 import { createStyleSet } from './styleSet';
-import { determineDirection, noop } from './utils';
+import { determineDirection } from './utils';
 
 const ROOT_CSS = css({
   height: '100%',
@@ -63,7 +63,6 @@ const ROOT_CSS = css({
 
 const HEADER_CSS = css({
   boxSizing: 'content-box',
-  backgroundColor: 'var(--header-bg)',
   color: '#efefef',
   fontWeight: '500',
   letterSpacing: '0.5px',
@@ -72,6 +71,7 @@ const HEADER_CSS = css({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
+  // backgroundColor: 'var(--header-bg)',
 
   '& > img': {
     width: '50px',
@@ -86,7 +86,7 @@ const HEADER_CSS = css({
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
-    textAlign: 'var(--text-align)',
+    // textAlign: 'var(--text-align)',
 
     '& > p:first-child': {
       margin: 0,
@@ -109,12 +109,11 @@ const ReactLeoWebChat = ({
   headerLogo,
   headerTitle,
   headerSubtitle,
-  onLoad = noop,
-  onError = noop,
   ...props
 }) => {
-  const headerRef = useRef(null);
-  const [cssVarsPolyfillLoaded, cssVarsPolyfillError] = useCSSVarsPolyfill();
+  const header = useRef({}).current;
+  header.containerRef = useRef();
+  header.contentsRef = useRef();
 
   const shouldShowHeader = useMemo(() => {
     return headerLogo && headerTitle && headerSubtitle;
@@ -141,30 +140,16 @@ const ReactLeoWebChat = ({
   }, [props.dir, props.language]);
 
   useLayoutEffect(() => {
-    headerRef.current.style.setProperty('--header-bg', styleSet.options.accent);
-    headerRef.current.style.setProperty('--text-align', direction === 'rtl' ? 'right' : 'left');
+    header.containerRef.current.style.backgroundColor = styleSet.options.accent;
+    header.contentsRef.current.style.textAlign = direction === 'rtl' ? 'right' : 'left';
   }, [styleSet.options, direction]);
-
-  useLayoutEffect(() => {
-    if (!cssVarsPolyfillLoaded || !cssVarsPolyfillError) return;
-
-    if (cssVarsPolyfillLoaded) {
-      onLoad();
-    }
-    else {
-      onError(cssVarsPolyfillError);
-    }
-  }, [cssVarsPolyfillLoaded, cssVarsPolyfillError]);
-
-  // Parent should handle loading layout
-  if (!cssVarsPolyfillLoaded) return null;
 
   return (
     <div className={ROOT_CSS + ''}>
       {shouldShowHeader && (
-        <div ref={headerRef} className={HEADER_CSS + ''}>
+        <div ref={header.containerRef} className={HEADER_CSS + ''}>
           {headerLogo && <img src={headerLogo} alt='' />}
-          <div>
+          <div ref={header.contentsRef}>
             {headerTitle && <p>{headerTitle}</p>}
             {headerSubtitle && <p>{headerSubtitle}</p>}
           </div>
