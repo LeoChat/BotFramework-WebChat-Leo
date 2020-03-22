@@ -2,7 +2,7 @@ import ReactWebChat, { concatMiddleware } from 'botframework-webchat';
 import classNames from 'classnames';
 import { css } from 'glamor';
 import merge from 'merge';
-import React, { useLayoutEffect, useMemo, useRef } from 'react';
+import React, { useLayoutEffect, useMemo, useRef, useImperativeHandle } from 'react';
 
 import defaultActivityMiddleware from './activityMiddleware';
 import defaultAttachmentMiddleware from './attachmentMiddleware';
@@ -10,6 +10,7 @@ import { useCSSVarsPolyfill } from './hooks';
 import defaultLocales from './locales';
 import { createStyleSet } from './styleSet';
 import { determineDirection } from './utils';
+import { WCLeoStateProvider } from './wcLeoState';
 
 const ROOT_CSS = css({
   height: '100%',
@@ -115,6 +116,9 @@ const ReactLeoWebChat = ({
   header.containerRef = useRef();
   header.contentsRef = useRef();
 
+  const sendBoxRef = useRef();
+  useImperativeHandle(props.sendBoxRef, () => sendBoxRef.current);
+
   const shouldShowHeader = useMemo(() => {
     return headerLogo && headerTitle && headerSubtitle;
   }, [headerLogo, headerTitle, headerSubtitle]);
@@ -157,14 +161,17 @@ const ReactLeoWebChat = ({
       )}
 
       <div>
-        <ReactWebChat
-          {...props}
-          activityMiddleware={activityMiddleware}
-          attachmentMiddleware={attachmentMiddleware}
-          styleOptions={styleSet.options}
-          styleSet={styleSet}
-          overrideLocalizedStrings={locales}
-        />
+        <WCLeoStateProvider sendBoxRef={sendBoxRef}>
+          <ReactWebChat
+            {...props}
+            sendBoxRef={sendBoxRef}
+            activityMiddleware={activityMiddleware}
+            attachmentMiddleware={attachmentMiddleware}
+            styleOptions={styleSet.options}
+            styleSet={styleSet}
+            overrideLocalizedStrings={locales}
+          />
+        </WCLeoStateProvider>
       </div>
     </div>
   );
