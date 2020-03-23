@@ -1,22 +1,26 @@
 import React, { createContext, useContext, useMemo } from 'react';
 
-const LeoContext = createContext();
+import { pick } from './utils';
+
+const WCLeoContext = createContext();
+
+const stateKeys = [
+  'sendBoxRef'
+];
 
 export const WCLeoStateProvider = ({ children, ...props }) => {
-  const candiState = Object.keys(props, [
-    'sendBoxRef'
-  ]);
+  const candiState = pick(props, stateKeys);
   const state = useMemo(() => candiState, candiState);
 
   return (
-    <LeoContext.Provider value={state}>
+    <WCLeoContext.Provider value={state}>
       {children}
-    </LeoContext.Provider>
+    </WCLeoContext.Provider>
   );
 };
 
 export const useSendBoxRef = () => {
-  const { sendBoxRef } = useContext(LeoContext);
+  const { sendBoxRef } = useContext(WCLeoContext);
 
   return [sendBoxRef];
 };
