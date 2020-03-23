@@ -9,7 +9,7 @@ import defaultAttachmentMiddleware from './attachmentMiddleware';
 import { useCSSVarsPolyfill } from './hooks';
 import defaultLocales from './locales';
 import { createStyleSet } from './styleSet';
-import { determineDirection, useConst } from './utils';
+import { determineDirection } from './utils';
 import { WCLeoStateProvider } from './wcLeoState';
 
 const ROOT_CSS = css({
@@ -112,9 +112,10 @@ const ReactLeoWebChat = ({
   headerSubtitle,
   ...props
 }) => {
-  const header = useConst({});
-  header.containerRef = useRef();
-  header.contentsRef = useRef();
+  const header = {
+    containerRef: useRef(),
+    contentsRef: useRef(),
+  };
 
   const sendBoxRef = useRef();
   useImperativeHandle(props.sendBoxRef, () => sendBoxRef.current);
