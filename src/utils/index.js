@@ -21,3 +21,25 @@ export const pick = (obj, keys) => {
     return newObj;
   }, {});
 };
+
+// foo_barBaz -> ['foo', 'bar', 'Baz']
+export const splitWords = (str) => {
+  return str
+    .replace(/[A-Z]/, ' $&')
+    .split(/[^a-zA-Z0-9]+/)
+    .filter(word => word.trim());
+};
+
+// upper -> Upper
+export const upperFirst = (str) => {
+  return str.substr(0, 1).toUpperCase() + str.substr(1);
+};
+
+// camel_case -> camelCase
+export const camelCase = (str) => {
+  const words = splitWords(str);
+  const first = words.shift().toLowerCase();
+  const rest = words.map(upperFirst);
+
+  return [first, ...rest].join('');
+};

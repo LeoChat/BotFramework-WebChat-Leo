@@ -1,7 +1,5 @@
 export const createWowStyleSet = ({
   paddingRegular,
-  bubbleMaxWidth,
-  bubbleMinWidth,
   accent,
 }) => {
   return {
@@ -15,63 +13,32 @@ export const createWowStyleSet = ({
       '&:not(.webchatleo__wow--rtl)': {
         paddingLeft: paddingRegular,
 
-        '&.webchatleo__wow_indented_content > .content': {
-          marginLeft: paddingRegular
-        },
-
         '& > .content': {
           paddingRight: paddingRegular,
-
-          '& > .webchatleo__wow__item_indented': {
-            marginLeft: paddingRegular
-          },
-
-          '& > ul > li:not(:last-child)': {
-            marginRight: paddingRegular
-          }
+          paddingLeft: paddingRegular,
         },
 
         '&.webchatleo__wow_extra_right_indent > .content': {
-          paddingRight: paddingRegular * 2
+          paddingRight: paddingRegular * 2,
         }
       },
 
       '&.webchatleo__wow--rtl': {
         paddingRight: paddingRegular,
 
-        '&.webchatleo__wow_indented_content > .content': {
-          marginRight: paddingRegular
-        },
-
         '& > .content': {
+          paddingRight: paddingRegular,
           paddingLeft: paddingRegular,
 
-          '& > .webchatleo__wow__item_indented': {
-            marginRight: paddingRegular
+          '& .webchatleo__wow__list': {
+            marginRight: paddingRegular,
           },
-
-          '& > ul > li:not(:last-child)': {
-            marginLeft: paddingRegular
-          }
         },
 
-        '&.webchatleo__wow_extra_right_indent > .content': {
-          paddingLeft: paddingRegular * 2
+        '&.webchatleo__wow_extra_left_indent > .content': {
+          paddingLeft: paddingRegular * 2,
         }
       },
-
-      '& > .content': {
-        '& > ul': {
-          '&:not(:first-child)': {
-            marginTop: paddingRegular
-          },
-
-          '& > li': {
-            maxWidth: bubbleMaxWidth,
-            minWidth: bubbleMinWidth
-          }
-        }
-      }
     },
 
     leoWowAttachment: {

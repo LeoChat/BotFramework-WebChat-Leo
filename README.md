@@ -18,32 +18,40 @@ There's a lot of emphasis on the architecture in this project, it's purpose is t
 
 ### Manual actions dispatching
 
-Specify the `shouldBindDispatchers`. In Chrome dev-tools, select the root element, and in console, type `$0.dispatchAction()`.
+Given the `exports` prop you should have the following dispatchers defined:
 
 **dispatchIncomingActivity(activity)**
 
 ```js
-$0.dispatchIncomingActivity({
+exports.dispatchIncomingActivity({
   id: '__test_wow__',
   type: 'message',
+  timestamp: new Date().toISOString(),
+  from: {
+    id: '__playground__',
+    role: 'bot',
+  },
   attachmentLayout: 'vnd.leo.wow',
   attachments: [
     {
-      type: 'application/vnd.leo.wow',
+      contentType: 'application/vnd.leo.wow',
       content: {
-        text: 'Foo'
+        text: 'Foo',
+        key: 'foo',
       },
     },
     {
-      type: 'application/vnd.leo.wow',
+      contentType: 'application/vnd.leo.wow',
       content: {
-        text: 'Bar'
+        text: 'Bar',
+        key: 'foo',
       },
     },
     {
-      type: 'application/vnd.leo.wow',
+      contentType: 'application/vnd.leo.wow',
       content: {
-        text: 'Baz'
+        text: 'Baz',
+        key: 'foo',
       },
     },
   ],

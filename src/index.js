@@ -4,7 +4,7 @@ import { css } from 'glamor';
 import merge from 'merge';
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useImperativeHandle } from 'react';
 
-import { bindDispatchersToEl, createStore } from './directlineStore';
+import { getLeoDispatchers, createStore } from './directlineStore';
 import { useCSSVarsPolyfill } from './hooks';
 import defaultLocales from './locales';
 import defaultActivityMiddleware from './middleware/activityMiddleware';
@@ -110,7 +110,7 @@ const ReactLeoWebChat = ({
   headerLogo,
   headerTitle,
   headerSubtitle,
-  bindDispatchers: shouldBindDispatchers,
+  exports,
   ...props
 }) => {
   const store = useMemo(() => props.store || createStore(), [props.store]);
@@ -149,10 +149,12 @@ const ReactLeoWebChat = ({
   }, [props.dir, props.language]);
 
   useEffect(() => {
-    if (!shouldBindDispatchers) return;
+    if (!exports) return;
 
-    return bindDispatchersToEl(store, containerRef.current)
-  }, [shouldBindDispatchers, store]);
+    const leoDispatchers = getLeoDispatchers(store);
+
+    Object.assign(exports, leoDispatchers);
+  }, [exports, store]);
 
   useLayoutEffect(() => {
     header.containerRef.current.style.backgroundColor = styleSet.options.accent;

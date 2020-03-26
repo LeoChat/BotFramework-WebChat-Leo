@@ -1,17 +1,19 @@
-import { createStore as superCreateStore } from 'botframework-webchat-core';
+import { createStore } from 'botframework-webchat';
 
-import { incomingActivity } from './actions';
+import * as actions from './actions';
+import { upperFirst } from './utils';
 
-export const createStore = (initialState, ...middlewares) => {
-  return superCreateStore(initialState, ...middlewares);
-};
+export { createStore };
 
-export const bindDispatchersToEl = (store, el) => {
-  el.dispatchIncomingActivity = (activity) => {
-    store.dispatch(incomingActivity(activity))
-  };
+export const getLeoDispatchers = (store) => {
+  return Object.keys(actions).reduce((dispatchers, actionName) => {
+    const dispatcherName = `dispatch${upperFirst(actionName)}`;
+    const action = actions[actionName];
 
-  return () => {
-    delete el.dispatchIncomingActivity;
-  };
+    dispatchers[dispatcherName] = (...args) => {
+      return store.dispatch(action(...args));
+    };
+
+    return dispatchers;
+  }, {});
 };

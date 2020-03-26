@@ -36,14 +36,18 @@ const ROOT_CSS = css({
   '& > .content': {
     flex: 1,
 
-    '& > ul': {
+    '& .webchatleo__wow__list': {
       display: 'flex',
+      flexWrap: 'wrap',
       listStyleType: 'none',
       margin: 0,
       padding: 0,
 
       '& > li': {
-        flex: 1
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
       }
     }
   }
@@ -87,22 +91,21 @@ const WowLayout = ({ activity, nextVisibleActivity, renderAttachment }) => {
           webchatleo__wow_extra_right_indent:
             (direction !== 'rtl' && !fromUser && !userAvatarInitials && bubbleFromUserNubSize) ||
             (direction === 'rtl' && fromUser && !botAvatarInitials && bubbleNubSize),
-          webchatleo__wow_indented_content: initials && !indented
         }
       )}
     >
       {!initials && !!(fromUser ? bubbleFromUserNubSize : bubbleNubSize) && <div className="avatar" />}
       <Avatar className="avatar" fromUser={fromUser} />
       <div className="content">
-        <ul className={classNames({ webchatleo__wow__item_indented: indented })}>
-          {attachments.map((attachment, index) => (
-            <li key={index}>
-              <Bubble fromUser={fromUser} key={index} nub={false}>
+        <Bubble fromUser={fromUser} nub={false}>
+          <ul className="webchatleo__wow__list">
+            {attachments.map((attachment, index) => (
+              <li key={index}>
                 {renderAttachment({ attachment })}
-              </Bubble>
-            </li>
-          ))}
-        </ul>
+              </li>
+            ))}
+          </ul>
+        </Bubble>
         <div className={classNames('webchat__row', { webchatleo__wow_item_indented: indented })}>
           {renderActivityStatus()}
         </div>

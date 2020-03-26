@@ -11,6 +11,10 @@ const ROOT_CSS = css({
   borderRadius: 999,
   textAlign: 'center',
   color: 'white',
+
+  '&:hover': {
+    cursor: 'pointer',
+  },
 });
 
 const WowAttachment = ({ attachment }) => {
