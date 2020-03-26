@@ -105,10 +105,8 @@ export const useAsyncCallback = (fn, input) => {
 
     while (!result.done) {
       try {
-        const result = await result.value;
-
         if (mountState.current) {
-          result = iterator.next(result);
+          result = iterator.next(result.value);
         }
       }
       catch (e) {

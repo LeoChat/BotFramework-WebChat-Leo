@@ -1,6 +1,6 @@
 import React from 'react';
 
-import WowAttachment from '../attachmentComponents/WowAttachment';
+import WowAttachment from '../components/attachmentComponents/WowAttachment';
 import { leoContentType } from '../utils';
 
 const wowAttachmentMiddleware = () => next => {

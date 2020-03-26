@@ -4,8 +4,8 @@ import { css } from 'glamor';
 import merge from 'merge';
 import React, { useLayoutEffect, useMemo, useRef, useImperativeHandle } from 'react';
 
-import defaultActivityMiddleware from './activityMiddleware';
-import defaultAttachmentMiddleware from './attachmentMiddleware';
+import defaultActivityMiddleware from './middleware/activityMiddleware';
+import defaultAttachmentMiddleware from './middleware/attachmentMiddleware';
 import { useCSSVarsPolyfill } from './hooks';
 import defaultLocales from './locales';
 import { createStyleSet } from './styleSet';
