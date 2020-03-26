@@ -15,3 +15,37 @@ There's a lot of emphasis on the architecture in this project, it's purpose is t
 - You cannot use [CSS vars](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) if you would like to support Internet Explorer 11.
 - You should use [web-chat LeO state](./src/wcLeoState.js) if you would like incoming activities to affect the global layout of the app e.g. header color and input placeholder.
 - Although not documented, you can gather accepted web-chat React props from [BasicWebChat](https://github.com/microsoft/BotFramework-WebChat/blob/1470e08466760db92ee1a8ac80a5b0236b5b35ee/packages/component/src/BasicWebChat.js#L180) and [Composer](https://github.com/microsoft/BotFramework-WebChat/blob/1470e08466760db92ee1a8ac80a5b0236b5b35ee/packages/component/src/Composer.js#L348) (a combination of both).
+
+### Manual actions dispatching
+
+Specify the `shouldBindDispatchers`. In Chrome dev-tools, select the root element, and in console, type `$0.dispatchAction()`.
+
+**dispatchIncomingActivity(activity)**
+
+```js
+$0.dispatchIncomingActivity({
+  id: '__test_wow__',
+  type: 'message',
+  attachmentLayout: 'vnd.leo.wow',
+  attachments: [
+    {
+      type: 'application/vnd.leo.wow',
+      content: {
+        text: 'Foo'
+      },
+    },
+    {
+      type: 'application/vnd.leo.wow',
+      content: {
+        text: 'Bar'
+      },
+    },
+    {
+      type: 'application/vnd.leo.wow',
+      content: {
+        text: 'Baz'
+      },
+    },
+  ],
+});
+```

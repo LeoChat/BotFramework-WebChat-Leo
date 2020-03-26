@@ -10,7 +10,7 @@ const stateKeys = [
 
 export const WCLeoStateProvider = ({ children, ...props }) => {
   const candiState = pick(props, stateKeys);
-  const state = useMemo(() => candiState, candiState);
+  const state = useMemo(() => candiState, Object.values(candiState));
 
   return (
     <WCLeoContext.Provider value={state}>

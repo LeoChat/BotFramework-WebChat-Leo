@@ -2,12 +2,13 @@ import ReactWebChat, { concatMiddleware } from 'botframework-webchat';
 import classNames from 'classnames';
 import { css } from 'glamor';
 import merge from 'merge';
-import React, { useLayoutEffect, useMemo, useRef, useImperativeHandle } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useImperativeHandle } from 'react';
 
-import defaultActivityMiddleware from './middleware/activityMiddleware';
-import defaultAttachmentMiddleware from './middleware/attachmentMiddleware';
+import { bindDispatchersToEl, createStore } from './directlineStore';
 import { useCSSVarsPolyfill } from './hooks';
 import defaultLocales from './locales';
+import defaultActivityMiddleware from './middleware/activityMiddleware';
+import defaultAttachmentMiddleware from './middleware/attachmentMiddleware';
 import { createStyleSet } from './styleSet';
 import { determineDirection } from './utils';
 import { WCLeoStateProvider } from './wcLeoState';
@@ -106,18 +107,21 @@ const HEADER_CSS = css({
 });
 
 const ReactLeoWebChat = ({
-  showHeader,
   headerLogo,
   headerTitle,
   headerSubtitle,
+  bindDispatchers: shouldBindDispatchers,
   ...props
 }) => {
+  const store = useMemo(() => props.store || createStore(), [props.store]);
+  const containerRef = useRef();
+  const sendBoxRef = useRef();
+
   const header = {
     containerRef: useRef(),
     contentsRef: useRef(),
   };
 
-  const sendBoxRef = useRef();
   useImperativeHandle(props.sendBoxRef, () => sendBoxRef.current);
 
   const shouldShowHeader = useMemo(() => {
@@ -144,13 +148,19 @@ const ReactLeoWebChat = ({
     return determineDirection(props.dir, props.language);
   }, [props.dir, props.language]);
 
+  useEffect(() => {
+    if (!shouldBindDispatchers) return;
+
+    return bindDispatchersToEl(store, containerRef.current)
+  }, [shouldBindDispatchers, store]);
+
   useLayoutEffect(() => {
     header.containerRef.current.style.backgroundColor = styleSet.options.accent;
     header.contentsRef.current.style.textAlign = direction === 'rtl' ? 'right' : 'left';
   }, [styleSet.options, direction]);
 
   return (
-    <div className={ROOT_CSS + ''}>
+    <div className={ROOT_CSS + ''} ref={containerRef}>
       {shouldShowHeader && (
         <div ref={header.containerRef} className={HEADER_CSS + ''}>
           {headerLogo && <img src={headerLogo} alt='' />}
@@ -165,6 +175,7 @@ const ReactLeoWebChat = ({
         <WCLeoStateProvider sendBoxRef={sendBoxRef}>
           <ReactWebChat
             {...props}
+            store={store}
             sendBoxRef={sendBoxRef}
             activityMiddleware={activityMiddleware}
             attachmentMiddleware={attachmentMiddleware}
